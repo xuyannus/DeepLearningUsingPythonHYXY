@@ -11,7 +11,7 @@ def set_context():
 
 def load_data():
     # load pima indians dataset
-    dataset = numpy.loadtxt("pima-indians-diabetes.csv", delimiter=",")
+    dataset = numpy.loadtxt("data/pima-indians-diabetes.csv", delimiter=",")
     # split into input (X) and output (Y) variables
     X = dataset[:, 0:8]
     Y = dataset[:, 8]
@@ -32,7 +32,7 @@ def define_model():
 
 def calibrate_model(X, Y, model):
     # Fit the model
-    model.fit(X, Y, nb_epoch=150, batch_size=10)
+    model.fit(X, Y, nb_epoch=150, batch_size=10, validation_split=0.33)
 
     # evaluate the model
     scores = model.evaluate(X, Y)
