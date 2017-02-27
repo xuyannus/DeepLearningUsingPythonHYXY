@@ -14,7 +14,7 @@ def set_context():
 
 def load_data():
     # load pima indians dataset
-    dataset = numpy.loadtxt("data/pima-indians-diabetes.csv", delimiter=",")
+    dataset = numpy.loadtxt("../data/pima-indians-diabetes.csv", delimiter=",")
     # split into input (X) and output (Y) variables
     X = dataset[:, 0:8]
     Y = dataset[:, 8]
