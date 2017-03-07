@@ -79,7 +79,7 @@ def create_a_neural_network(photos):
     model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
     # show the basic neural network structure
-    nn_plot(model, to_file='./NeuralNetworkToLearnNumbers.png', show_shapes=True)
+    plot(model, to_file='./NeuralNetworkToLearnNumbers.png', show_shapes=True)
 
     return model
 
