@@ -18,6 +18,8 @@ class DataSet:
         self.y_train = None
         self.X_test = None
         self.y_test = None
+        self.X = None
+        self.y = None
         self.num_classes = 0
         self.num_pixels = 0
 

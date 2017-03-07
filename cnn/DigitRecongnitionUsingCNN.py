@@ -9,6 +9,8 @@ from keras.layers.convolutional import MaxPooling2D
 from keras.utils import np_utils
 import matplotlib.pyplot as plt
 
+from keras.utils.visualize_util import plot
+
 import numpy
 
 from keras import backend as K
@@ -91,6 +93,9 @@ def define_model(data):
 
     # Compile model
     model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+
+    plot(model, to_file='./DigitRecongnitionUsingCNN.png')
+
     return model
 
 
