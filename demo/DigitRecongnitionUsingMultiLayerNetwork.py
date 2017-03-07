@@ -4,8 +4,8 @@ from keras.models import Sequential
 from keras.layers import Dense
 from keras.layers import Dropout
 from keras.utils import np_utils
-import matplotlib.pyplot as plt
-from keras.utils.visualize_util import plot as nn_plot
+# import matplotlib.pyplot as plt
+from keras.utils.visualize_util import plot
 
 import numpy
 
@@ -39,18 +39,18 @@ def load_photos():
     return photos
 
 
-def plot_photos(photos):
-    # plot 4 images as gray scale
-    plt.subplot(221)
-    plt.imshow(photos.X_train[0], cmap=plt.get_cmap('gray'))
-    plt.subplot(222)
-    plt.imshow(photos.X_train[1], cmap=plt.get_cmap('gray'))
-    plt.subplot(223)
-    plt.imshow(photos.X_train[2], cmap=plt.get_cmap('gray'))
-    plt.subplot(224)
-    plt.imshow(photos.X_train[3], cmap=plt.get_cmap('gray'))
-    # show the plot
-    plt.show()
+# def plot_photos(photos):
+#     # plot 4 images as gray scale
+#     plt.subplot(221)
+#     plt.imshow(photos.X_train[0], cmap=plt.get_cmap('gray'))
+#     plt.subplot(222)
+#     plt.imshow(photos.X_train[1], cmap=plt.get_cmap('gray'))
+#     plt.subplot(223)
+#     plt.imshow(photos.X_train[2], cmap=plt.get_cmap('gray'))
+#     plt.subplot(224)
+#     plt.imshow(photos.X_train[3], cmap=plt.get_cmap('gray'))
+#     # show the plot
+#     plt.show()
 
 
 def preprocess(photos):
@@ -95,9 +95,9 @@ def main():
     model = create_a_neural_network(photos)
 
     # Step 4: Model training
-    model.fit(photos.X_train, photos.y_train, nb_epoch=10, batch_size=200, verbose=2)
+    model.fit(photos.X_train, photos.y_train, nb_epoch=10, batch_size=200, verbose=0)
 
-    # Final evaluation of the model
+    # Step 5: Final evaluation of the model
     scores = model.evaluate(photos.X_test, photos.y_test, verbose=2)
 
     print("Baseline Error: %.2f%%" % (100 - scores[1] * 100))
