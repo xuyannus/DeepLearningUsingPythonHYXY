@@ -6,7 +6,7 @@ from keras.layers import Dropout
 from keras.utils import np_utils
 # import matplotlib.pyplot as plt
 from keras.utils.visualize_util import plot
-
+import pydot
 import numpy
 
 # fix the random seed
