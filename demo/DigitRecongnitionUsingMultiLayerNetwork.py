@@ -5,7 +5,7 @@ from keras.layers import Dense
 from keras.layers import Dropout
 from keras.utils import np_utils
 import matplotlib.pyplot as plt
-from keras.utils.visualize_util import nn_plot
+from keras.utils.visualize_util import plot as nn_plot
 
 import numpy
 
@@ -95,10 +95,10 @@ def main():
     model = create_a_neural_network(photos)
 
     # Step 4: Model training
-    model.fit(photos.X_train, photos.y_train, validation_data=(photos.X_test, photos.y_test), nb_epoch=10, batch_size=200, verbose=2)
+    model.fit(photos.X_train, photos.y_train, nb_epoch=10, batch_size=200, verbose=2)
 
     # Final evaluation of the model
-    scores = model.evaluate(photos.X_test, photos.y_test, verbose=0)
+    scores = model.evaluate(photos.X_test, photos.y_test, verbose=2)
 
     print("Baseline Error: %.2f%%" % (100 - scores[1] * 100))
 
