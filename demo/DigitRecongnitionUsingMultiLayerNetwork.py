@@ -6,7 +6,6 @@ from keras.layers import Dropout
 from keras.utils import np_utils
 # import matplotlib.pyplot as plt
 from keras.utils.visualize_util import plot
-import pydot
 import numpy
 
 # fix the random seed
@@ -39,20 +38,6 @@ def load_photos():
     return photos
 
 
-# def plot_photos(photos):
-#     # plot 4 images as gray scale
-#     plt.subplot(221)
-#     plt.imshow(photos.X_train[0], cmap=plt.get_cmap('gray'))
-#     plt.subplot(222)
-#     plt.imshow(photos.X_train[1], cmap=plt.get_cmap('gray'))
-#     plt.subplot(223)
-#     plt.imshow(photos.X_train[2], cmap=plt.get_cmap('gray'))
-#     plt.subplot(224)
-#     plt.imshow(photos.X_train[3], cmap=plt.get_cmap('gray'))
-#     # show the plot
-#     plt.show()
-
-
 def preprocess(photos):
     # flatten 28*28 images to a 784 vector for each image
     photos.num_pixels = photos.X_train.shape[1] * photos.X_train.shape[2]
@@ -79,7 +64,8 @@ def create_a_neural_network(photos):
     model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
     # show the basic neural network structure
-    plot(model, to_file='./NeuralNetworkToLearnNumbers.png', show_shapes=True)
+    # plot(model, to_file='./NeuralNetworkToLearnNumbers.png', show_shapes=True)
+    print(model.summary())
 
     return model
 
@@ -95,7 +81,7 @@ def main():
     model = create_a_neural_network(photos)
 
     # Step 4: Model training
-    model.fit(photos.X_train, photos.y_train, nb_epoch=10, batch_size=200, verbose=0)
+    model.fit(photos.X_train, photos.y_train, nb_epoch=100, batch_size=200, verbose=2)
 
     # Step 5: Final evaluation of the model
     scores = model.evaluate(photos.X_test, photos.y_test, verbose=2)
