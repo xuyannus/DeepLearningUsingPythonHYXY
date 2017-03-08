@@ -81,7 +81,7 @@ def main():
     model = create_a_neural_network(photos)
 
     # Step 4: Model training
-    model.fit(photos.X_train, photos.y_train, nb_epoch=100, batch_size=200, verbose=2)
+    model.fit(photos.X_train, photos.y_train, nb_epoch=10, batch_size=200, verbose=2)
 
     # Step 5: Final evaluation of the model
     scores = model.evaluate(photos.X_test, photos.y_test, verbose=2)
