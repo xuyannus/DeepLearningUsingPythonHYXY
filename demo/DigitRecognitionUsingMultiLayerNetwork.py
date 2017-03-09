@@ -10,6 +10,8 @@ import numpy
 
 # fix the random seed
 seed = 7
+num_pixels = 28 * 28
+num_classes = 10
 
 
 class DataSet:
@@ -18,8 +20,6 @@ class DataSet:
         self.y_train = None
         self.X_test = None
         self.y_test = None
-        self.num_classes = 0
-        self.num_pixels = 0
 
 
 def set_context():
@@ -40,7 +40,6 @@ def load_photos():
 
 def preprocess(photos):
     # flatten 28*28 images to a 784 vector for each image
-    photos.num_pixels = photos.X_train.shape[1] * photos.X_train.shape[2]
     photos.X_train = photos.X_train.reshape(photos.X_train.shape[0], photos.num_pixels).astype('float32')
     photos.X_test = photos.X_test.reshape(photos.X_test.shape[0], photos.num_pixels).astype('float32')
 
@@ -51,14 +50,13 @@ def preprocess(photos):
     # one hot encode outputs
     photos.y_train = np_utils.to_categorical(photos.y_train)
     photos.y_test = np_utils.to_categorical(photos.y_test)
-    photos.num_classes = photos.y_test.shape[1]
 
 
-def create_a_neural_network(photos):
+def create_a_neural_network():
     # create model
     nn_model = Sequential()
-    nn_model.add(Dense(photos.num_pixels, input_dim=photos.num_pixels, init='normal', activation='relu'))
-    nn_model.add(Dense(photos.num_classes, init='normal', activation='softmax'))
+    nn_model.add(Dense(num_pixels, input_dim=num_pixels, init='normal', activation='relu'))
+    nn_model.add(Dense(num_classes, init='normal', activation='softmax'))
 
     # Compile model
     nn_model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
@@ -79,7 +77,7 @@ def main():
     preprocess(photos)
 
     # Step 3: create a NN model
-    nn_model = create_a_neural_network(photos)
+    nn_model = create_a_neural_network()
 
     # Step 4: Model training
     nn_model.fit(photos.X_train, photos.y_train, nb_epoch=10, batch_size=200, verbose=2)

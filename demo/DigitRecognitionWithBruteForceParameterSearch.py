@@ -43,7 +43,6 @@ def load_photos():
 
 def preprocess(photos):
     # flatten 28*28 images to a 784 vector for each image
-    photos.num_pixels = photos.X_train.shape[1] * photos.X_train.shape[2]
     photos.X_train = photos.X_train.reshape(photos.X_train.shape[0], photos.num_pixels).astype('float32')
     photos.X_test = photos.X_test.reshape(photos.X_test.shape[0], photos.num_pixels).astype('float32')
 
@@ -54,7 +53,6 @@ def preprocess(photos):
     # one hot encode outputs
     photos.y_train = np_utils.to_categorical(photos.y_train)
     photos.y_test = np_utils.to_categorical(photos.y_test)
-    photos.num_classes = photos.y_test.shape[1]
 
 
 def create_a_basic_neural_network(optimizer='rmsprop', init_distribution='glorot_uniform', activation_fun='relu'):
