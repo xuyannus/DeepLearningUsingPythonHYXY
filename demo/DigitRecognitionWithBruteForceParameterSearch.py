@@ -9,6 +9,7 @@ from keras.utils.visualize_util import plot
 import numpy
 
 # fix the random seed
+from keras.wrappers.scikit_learn import KerasClassifier
 from sklearn.model_selection import GridSearchCV
 
 seed = 7
@@ -56,7 +57,7 @@ def preprocess(photos):
     photos.num_classes = photos.y_test.shape[1]
 
 
-def create_a_neural_network(photos):
+def create_a_basic_neural_network(photos):
     # create model
     nn_model = Sequential()
     nn_model.add(Dense(photos.num_pixels, input_dim=photos.num_pixels, init='normal', activation='relu'))
@@ -64,6 +65,13 @@ def create_a_neural_network(photos):
 
     # Compile model
     nn_model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+    return nn_model
+
+
+def create_a_brute_force_nn(photos):
+
+    # create a baseline nn model
+    model = KerasClassifier(build_fn=create_a_basic_neural_network, photos=photos, verbose=0)
 
     # grid search epochs, batch size and optimizer
     optimizers = ['rmsprop', 'adam']
@@ -71,8 +79,8 @@ def create_a_neural_network(photos):
     epochs = [10, 20]
     batches = [50, 100, 200]
     param_grid = dict(optimizer=optimizers, init=init_distribution, nb_epoch=epochs, batch_size=batches)
-    grid = GridSearchCV(estimator=nn_model, param_grid=param_grid, verbose=2)
 
+    grid = GridSearchCV(estimator=model, param_grid=param_grid, verbose=2)
     return grid
 
 
@@ -85,7 +93,7 @@ def main():
     preprocess(photos)
 
     # Step 3: create a NN model
-    model = create_a_neural_network(photos)
+    model = create_a_brute_force_nn(photos)
 
     # Step 4: Model training
     brute_force_results = model.fit(photos.X_train, photos.y_train)
