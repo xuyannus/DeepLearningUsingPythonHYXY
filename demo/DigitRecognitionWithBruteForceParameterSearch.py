@@ -77,8 +77,8 @@ def create_a_brute_force_nn():
     optimizers = ['rmsprop', 'adam']
     init_distribution = ['glorot_uniform', 'normal', 'uniform']
     activation_fun = ['relu', 'sigmoid']
-    epochs = [10, 20]
-    batches = [50, 100, 200]
+    epochs = [10]
+    batches = [50]
     param_grid = dict(optimizer=optimizers, init_distribution=init_distribution, activation_fun=activation_fun, nb_epoch=epochs, batch_size=batches)
 
     grid = GridSearchCV(estimator=model, param_grid=param_grid, verbose=2)
