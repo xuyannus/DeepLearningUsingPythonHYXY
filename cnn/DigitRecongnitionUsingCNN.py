@@ -43,16 +43,11 @@ def load_data(data):
 
 def plot_data(data):
     # plot 4 images as gray scale
-    plt.subplot(221)
-    plt.imshow(data.X_train[0], cmap=plt.get_cmap('gray'))
-    plt.subplot(222)
-    plt.imshow(data.X_train[1], cmap=plt.get_cmap('gray'))
-    plt.subplot(223)
-    plt.imshow(data.X_train[2], cmap=plt.get_cmap('gray'))
-    plt.subplot(224)
-    plt.imshow(data.X_train[3], cmap=plt.get_cmap('gray'))
-    # show the plot
-    plt.show()
+
+    for index in range(0, 1000):
+        plt.figure(figsize=(5, 5))
+        plt.imshow(data.X_train[index], cmap=plt.get_cmap('gray'))
+        plt.savefig('../demo/images/numbers_{}.png'.format(index))
 
 
 def preprocess(data):

@@ -9,6 +9,8 @@ from keras.utils.visualize_util import plot
 import numpy
 
 # fix the random seed
+from sklearn.model_selection import GridSearchCV
+
 seed = 7
 
 
@@ -63,11 +65,13 @@ def create_a_neural_network(photos):
     # Compile model
     nn_model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
-    # show the basic neural network structure
-    plot(nn_model, to_file='./NeuralNetworkToLearnNumbers.png', show_shapes=True)
-    # print(nn_model.summary())
+    # grid search epochs, batch size and optimizer
+    optimizers = ['rmsprop', 'adam']
+    init_distribution = ['glorot_uniform', 'normal', 'uniform']
+    param_grid = dict(optimizer=optimizers, init=init_distribution)
+    grid = GridSearchCV(estimator=nn_model, param_grid=param_grid)
 
-    return nn_model
+    return grid
 
 
 def main():
@@ -79,13 +83,14 @@ def main():
     preprocess(photos)
 
     # Step 3: create a NN model
-    nn_model = create_a_neural_network(photos)
+    model = create_a_neural_network(photos)
 
     # Step 4: Model training
-    nn_model.fit(photos.X_train, photos.y_train, nb_epoch=10, batch_size=200, verbose=2)
+    brute_force_results = model.fit(photos.X_train, photos.y_train, nb_epoch=10, batch_size=200, verbose=2)
+    print("Best: %f using %s" % (brute_force_results.best_score_, brute_force_results.best_params_))
 
     # Step 5: Final evaluation of the model
-    scores = nn_model.evaluate(photos.X_test, photos.y_test, verbose=2)
+    scores = model.evaluate(photos.X_test, photos.y_test, verbose=2)
 
     print("Accuracy: %.2f%%" % (scores[1] * 100))
 
