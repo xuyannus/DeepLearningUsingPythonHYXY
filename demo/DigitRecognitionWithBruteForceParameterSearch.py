@@ -13,6 +13,8 @@ from keras.wrappers.scikit_learn import KerasClassifier
 from sklearn.model_selection import GridSearchCV
 
 seed = 7
+num_pixels = 28 * 28
+num_classes = 10
 
 
 class DataSet:
@@ -21,8 +23,6 @@ class DataSet:
         self.y_train = None
         self.X_test = None
         self.y_test = None
-        self.num_classes = 0
-        self.num_pixels = 0
 
 
 def set_context():
@@ -57,28 +57,29 @@ def preprocess(photos):
     photos.num_classes = photos.y_test.shape[1]
 
 
-def create_a_basic_neural_network(photos):
+def create_a_basic_neural_network(optimizer='rmsprop', init_distribution='glorot_uniform', activation_fun='relu'):
     # create model
     nn_model = Sequential()
-    nn_model.add(Dense(photos.num_pixels, input_dim=photos.num_pixels, init='normal', activation='relu'))
-    nn_model.add(Dense(photos.num_classes, init='normal', activation='softmax'))
+    nn_model.add(Dense(num_pixels, input_dim=num_pixels, init=init_distribution, activation=activation_fun))
+    nn_model.add(Dense(num_classes, init='normal', activation='softmax'))
 
     # Compile model
-    nn_model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+    nn_model.compile(loss='categorical_crossentropy', optimizer=optimizer, metrics=['accuracy'])
     return nn_model
 
 
-def create_a_brute_force_nn(photos):
+def create_a_brute_force_nn():
 
     # create a baseline nn model
-    model = KerasClassifier(build_fn=create_a_basic_neural_network, photos=photos, verbose=0)
+    model = KerasClassifier(build_fn=create_a_basic_neural_network, verbose=0)
 
     # grid search epochs, batch size and optimizer
     optimizers = ['rmsprop', 'adam']
     init_distribution = ['glorot_uniform', 'normal', 'uniform']
+    activation_fun = ['relu', 'sigmoid']
     epochs = [10, 20]
     batches = [50, 100, 200]
-    param_grid = dict(optimizer=optimizers, init=init_distribution, nb_epoch=epochs, batch_size=batches)
+    param_grid = dict(optimizer=optimizers, init_distribution=init_distribution, activation_fun=activation_fun, nb_epoch=epochs, batch_size=batches)
 
     grid = GridSearchCV(estimator=model, param_grid=param_grid, verbose=2)
     return grid
@@ -93,7 +94,7 @@ def main():
     preprocess(photos)
 
     # Step 3: create a NN model
-    model = create_a_brute_force_nn(photos)
+    model = create_a_brute_force_nn()
 
     # Step 4: Model training
     brute_force_results = model.fit(photos.X_train, photos.y_train)
