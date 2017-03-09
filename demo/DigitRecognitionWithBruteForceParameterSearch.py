@@ -43,8 +43,8 @@ def load_photos():
 
 def preprocess(photos):
     # flatten 28*28 images to a 784 vector for each image
-    photos.X_train = photos.X_train.reshape(photos.X_train.shape[0], photos.num_pixels).astype('float32')
-    photos.X_test = photos.X_test.reshape(photos.X_test.shape[0], photos.num_pixels).astype('float32')
+    photos.X_train = photos.X_train.reshape(photos.X_train.shape[0], num_pixels).astype('float32')
+    photos.X_test = photos.X_test.reshape(photos.X_test.shape[0], num_pixels).astype('float32')
 
     # normalize inputs from 0-255 to 0-1
     photos.X_train = photos.X_train / 255.0
