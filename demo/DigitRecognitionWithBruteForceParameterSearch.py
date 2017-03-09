@@ -68,8 +68,10 @@ def create_a_neural_network(photos):
     # grid search epochs, batch size and optimizer
     optimizers = ['rmsprop', 'adam']
     init_distribution = ['glorot_uniform', 'normal', 'uniform']
-    param_grid = dict(optimizer=optimizers, init=init_distribution)
-    grid = GridSearchCV(estimator=nn_model, param_grid=param_grid)
+    epochs = [10, 20]
+    batches = [50, 100, 200]
+    param_grid = dict(optimizer=optimizers, init=init_distribution, nb_epoch=epochs, batch_size=batches)
+    grid = GridSearchCV(estimator=nn_model, param_grid=param_grid, verbose=2)
 
     return grid
 
@@ -86,7 +88,7 @@ def main():
     model = create_a_neural_network(photos)
 
     # Step 4: Model training
-    brute_force_results = model.fit(photos.X_train, photos.y_train, nb_epoch=10, batch_size=200, verbose=2)
+    brute_force_results = model.fit(photos.X_train, photos.y_train)
     print("Best: %f using %s" % (brute_force_results.best_score_, brute_force_results.best_params_))
 
     # Step 5: Final evaluation of the model
