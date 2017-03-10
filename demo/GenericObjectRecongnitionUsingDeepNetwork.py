@@ -55,7 +55,7 @@ def preprocess(photos):
     num_classes = photos.y_test.shape[1]
 
 
-def create_a_deep_neural_network(data):
+def create_a_deep_neural_network():
     # create model
     model = Sequential()
 

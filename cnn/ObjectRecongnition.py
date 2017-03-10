@@ -5,8 +5,10 @@ from keras.models import Sequential
 from keras.optimizers import SGD
 from keras.utils import np_utils
 from matplotlib import pyplot
-
+import matplotlib.pyplot as plt
 from cnn.DigitRecongnitionUsingMultiLayerNetwork import DataSet
+
+import numpy as np
 
 from keras import backend as K
 K.set_image_dim_ordering('th')
@@ -18,6 +20,16 @@ def load_data(data):
 
     print data.X_train.shape
     print data.X_test.shape
+
+
+def plot_data(data):
+    # plot 4 digits as gray scale
+
+    for index in range(0, 100):
+        plt.figure(figsize=(5, 5))
+        # plt.imshow(data.X_train[index])
+        plt.imshow(np.rollaxis(data.X_train[index], 0, 3))
+        plt.savefig('../demo/object_images/object_{}.png'.format(index))
 
 
 def preprocess(data):
@@ -71,17 +83,19 @@ def main():
 
     load_data(data)
 
-    preprocess(data)
+    plot_data(data)
 
-    model = define_model(data)
-
-    # Fit the model
-    epochs = 25
-    model.fit(data.X_train, data.y_train, validation_data=(data.X_test, data.y_test), nb_epoch=epochs, batch_size=32, verbose=2)
-
-    # Final evaluation of the model
-    scores = model.evaluate(data.X_test, data.y_test, verbose=0)
-    print("Accuracy: %.2f%%" % (scores[1] * 100))
+    # preprocess(data)
+    #
+    # model = define_model(data)
+    #
+    # # Fit the model
+    # epochs = 25
+    # model.fit(data.X_train, data.y_train, validation_data=(data.X_test, data.y_test), nb_epoch=epochs, batch_size=32, verbose=2)
+    #
+    # # Final evaluation of the model
+    # scores = model.evaluate(data.X_test, data.y_test, verbose=0)
+    # print("Accuracy: %.2f%%" % (scores[1] * 100))
 
 
 if __name__ == "__main__":
