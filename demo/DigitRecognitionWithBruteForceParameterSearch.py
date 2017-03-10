@@ -98,11 +98,12 @@ def main():
     brute_force_results = model.fit(photos.X_train, photos.y_train)
     print("Best: %f using %s" % (brute_force_results.best_score_, brute_force_results.best_params_))
 
-    # Step 5: Final evaluation of the model
-    scores = model.predict(photos.X_test)
-        # .evaluate(photos.X_test, photos.y_test, verbose=2)
+    means = brute_force_results.cv_results_['mean_test_score']
+    stds = brute_force_results.cv_results_['std_test_score']
+    params = brute_force_results.cv_results_['params']
 
-    print("Accuracy: %.2f%%" % (scores[1] * 100))
+    for mean, stdev, param in zip(means, stds, params):
+        print("%f (%f) with: %r" % (mean, stdev, param))
 
 
 if __name__ == "__main__":
