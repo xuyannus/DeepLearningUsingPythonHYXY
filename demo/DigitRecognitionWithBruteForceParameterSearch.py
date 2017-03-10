@@ -71,7 +71,13 @@ def create_a_brute_force_nn():
     # create a baseline nn model
     model = KerasClassifier(build_fn=create_a_basic_neural_network, verbose=0)
 
-    # grid search epochs, batch size and optimizer
+    # grid search
+    # learn_rate = [0.001, 0.01, 0.1, 0.2, 0.3]
+    # momentum = [0.0, 0.2, 0.4, 0.6, 0.8, 0.9]
+    # optimizers = ['SGD', 'rmsprop', 'Adagrad', 'Adadelta', 'adam', 'Adamax', 'Nadam']
+    # weight_constraint = [1, 2, 3, 4, 5]
+    # dropout_rate = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
+    # neurons = [1, 5, 10, 15, 20, 25, 30]
     optimizers = ['rmsprop', 'adam']
     init_distribution = ['normal']
     activation_fun = ['relu', 'sigmoid']
