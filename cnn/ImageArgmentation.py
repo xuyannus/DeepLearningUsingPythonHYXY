@@ -27,9 +27,9 @@ def zca(data):
     # fit parameters from data
     datagen.fit(data.X_train)
 
-    # configure batch size and retrieve one batch of images
+    # configure batch size and retrieve one batch of digits
     for X_batch, y_batch in datagen.flow(data.X_train, data.y_train, batch_size=9):
-        # create a grid of 3x3 images
+        # create a grid of 3x3 digits
         for i in range(0, 9):
             pyplot.subplot(330 + 1 + i)
             pyplot.imshow(X_batch[i].reshape(28, 28), cmap=pyplot.get_cmap('gray'))
@@ -47,9 +47,9 @@ def random_rotate(data):
     # fit parameters from data
     datagen.fit(data.X_train)
 
-    # configure batch size and retrieve one batch of images
+    # configure batch size and retrieve one batch of digits
     for X_batch, y_batch in datagen.flow(data.X_train, data.y_train, batch_size=9):
-        # create a grid of 3x3 images
+        # create a grid of 3x3 digits
         for i in range(0, 9):
             pyplot.subplot(330 + 1 + i)
             pyplot.imshow(X_batch[i].reshape(28, 28), cmap=pyplot.get_cmap('gray'))
@@ -67,11 +67,11 @@ def save_to_file(data):
     # fit parameters from data
     datagen.fit(data.X_train)
 
-    # configure batch size and retrieve one batch of images
-    os.makedirs('images')
+    # configure batch size and retrieve one batch of digits
+    os.makedirs('digits')
 
-    for X_batch, y_batch in datagen.flow(data.X_train, data.y_train, batch_size=9, save_to_dir='images', save_prefix='aug', save_format='png'):
-        # create a grid of 3x3 images
+    for X_batch, y_batch in datagen.flow(data.X_train, data.y_train, batch_size=9, save_to_dir='digits', save_prefix='aug', save_format='png'):
+        # create a grid of 3x3 digits
         for i in range(0, 9):
             pyplot.subplot(330 + 1 + i)
             pyplot.imshow(X_batch[i].reshape(28, 28), cmap=pyplot.get_cmap('gray'))

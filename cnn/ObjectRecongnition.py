@@ -22,7 +22,7 @@ def load_data(data):
 
 def preprocess(data):
 
-    # flatten 28*28 images to a 784 vector for each image
+    # flatten 28*28 digits to a 784 vector for each image
     data.num_pixels = data.X_train.shape[1] * data.X_train.shape[2]
 
     # reshape to be [samples][channels][width][height]

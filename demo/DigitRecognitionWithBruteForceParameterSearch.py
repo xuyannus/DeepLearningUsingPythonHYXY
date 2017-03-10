@@ -42,7 +42,7 @@ def load_photos():
 
 
 def preprocess(photos):
-    # flatten 28*28 images to a 784 vector for each image
+    # flatten 28*28 digits to a 784 vector for each image
     photos.X_train = photos.X_train.reshape(photos.X_train.shape[0], num_pixels).astype('float32')
     photos.X_test = photos.X_test.reshape(photos.X_test.shape[0], num_pixels).astype('float32')
 
@@ -73,7 +73,7 @@ def create_a_brute_force_nn():
 
     # grid search epochs, batch size and optimizer
     optimizers = ['rmsprop', 'adam']
-    init_distribution = ['glorot_uniform', 'normal', 'uniform']
+    init_distribution = ['normal']
     activation_fun = ['relu', 'sigmoid']
     epochs = [10]
     batches = [50]
@@ -99,7 +99,8 @@ def main():
     print("Best: %f using %s" % (brute_force_results.best_score_, brute_force_results.best_params_))
 
     # Step 5: Final evaluation of the model
-    scores = model.evaluate(photos.X_test, photos.y_test, verbose=2)
+    scores = model.predict(photos.X_test)
+        # .evaluate(photos.X_test, photos.y_test, verbose=2)
 
     print("Accuracy: %.2f%%" % (scores[1] * 100))
 

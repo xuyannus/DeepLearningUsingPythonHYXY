@@ -42,17 +42,17 @@ def load_data(data):
 
 
 def plot_data(data):
-    # plot 4 images as gray scale
+    # plot 4 digits as gray scale
 
     for index in range(0, 1000):
         plt.figure(figsize=(5, 5))
         plt.imshow(data.X_train[index], cmap=plt.get_cmap('gray'))
-        plt.savefig('../demo/images/numbers_{}.png'.format(index))
+        plt.savefig('../demo/digits/numbers_{}.png'.format(index))
 
 
 def preprocess(data):
 
-    # flatten 28*28 images to a 784 vector for each image
+    # flatten 28*28 digits to a 784 vector for each image
     data.num_pixels = data.X_train.shape[1] * data.X_train.shape[2]
 
     # reshape to be [samples][channels][width][height]
