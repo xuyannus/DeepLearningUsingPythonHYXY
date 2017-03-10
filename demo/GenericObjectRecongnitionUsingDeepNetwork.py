@@ -9,15 +9,20 @@ from matplotlib import pyplot
 from keras.utils.visualize_util import plot
 
 from keras import backend as K
-
-from demo.DigitRecognitionUsingMultiLayerNetwork import DataSet
-
 K.set_image_dim_ordering('th')
 
 
 seed = 7
 num_pixels = 28 * 28
 num_classes = 10
+
+
+class DataSet:
+    def __init__(self,):
+        self.X_train = None
+        self.y_train = None
+        self.X_test = None
+        self.y_test = None
 
 
 def load_data():
