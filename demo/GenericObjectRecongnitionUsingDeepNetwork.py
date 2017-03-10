@@ -7,9 +7,11 @@ from keras.utils import np_utils
 from matplotlib import pyplot
 
 from keras.utils.visualize_util import plot
-from cnn.DigitRecongnitionUsingMultiLayerNetwork import DataSet
 
 from keras import backend as K
+
+from demo.DigitRecognitionUsingMultiLayerNetwork import DataSet
+
 K.set_image_dim_ordering('th')
 
 
