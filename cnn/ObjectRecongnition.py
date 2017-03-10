@@ -28,6 +28,7 @@ def plot_data(data):
     for index in range(0, 100):
         plt.figure(figsize=(5, 5))
         # plt.imshow(data.X_train[index])
+        # put the first dim in the end in order to use imshow
         plt.imshow(np.rollaxis(data.X_train[index], 0, 3))
         plt.savefig('../demo/object_images/object_{}.png'.format(index))
 

@@ -13,7 +13,7 @@ K.set_image_dim_ordering('th')
 
 
 seed = 7
-num_pixels = 28 * 28
+num_pixels = 32 * 32
 num_classes = 10
 
 
@@ -40,6 +40,7 @@ def preprocess(photos):
 
     # flatten 28*28 digits to a 784 vector for each image
     num_pixels = photos.X_train.shape[1] * photos.X_train.shape[2]
+    print num_pixels
 
     # reshape to be [samples][channels][width][height]
     photos.X_train = photos.X_train.astype('float32')
@@ -53,6 +54,8 @@ def preprocess(photos):
     photos.y_train = np_utils.to_categorical(photos.y_train)
     photos.y_test = np_utils.to_categorical(photos.y_test)
     num_classes = photos.y_test.shape[1]
+
+    print num_classes
 
 
 def create_a_deep_neural_network():
@@ -95,7 +98,7 @@ def main():
     # Step 5: Final evaluation of the model
     scores = model.evaluate(photos.X_test, photos.y_test, verbose=0)
 
-    print("Accuracy: %.2f%%" % (scores[1] * 100))
+    print("Evaluation Accuracy: %.2f%%" % (scores[1] * 100))
 
 
 if __name__ == "__main__":
